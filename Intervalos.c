@@ -1,59 +1,42 @@
-/**************************
-
-                            Solicita N valores e apresenta o par de numeros
-                            consecutivos que possui o maior intervalo
-
-***************************/
-
 #include <stdio.h>
-
 int main()
 {
-    int n, num1, num2, aux=1, intervalo=0, num_maior_intervalo1, num_maior_intervalo2;
-    
+    int n, num1, num2, intervalo=0, num_maior_intervalo1, num_maior_intervalo2, i = 1;
     //define quantos numeros ira pedir (valor de N)
     printf("Informe quantos valores deseja digitar: ");
     scanf("%d", &n);
-    
-    for(int i = 1; i <= n; i++){ 
-        
-        printf("Digite o %d número: ", aux);
-        scanf("%d", &num1);
-        
-        aux++; //serve para informar qual o numero a ser digitado (1o numero, 2o numero)
-        i++;
-        
-        printf("Digite o %d numero: ", aux); //aqui está o aux sendo usado 
+    //inicia com o primeiro numero fora do laco
+    printf("Digite o %d numero: ", i);
+    scanf("%d", &num1);
+    for(i = 2; i <= n; i++){
+        //dentro do laco entre com os proximos valores
+        printf("Digite o %d numero: ", i);
         scanf("%d", &num2);
+        if((num1-num2) > intervalo){ //testa a subtracao do primeiro e o segundo numero
         
-        aux++; //incrementa o aux
+            intervalo = num1-num2;
+            num_maior_intervalo1 = num1;
+            num_maior_intervalo2 = num2;
+            
+        } else if((num2-num1) > intervalo){ //testa a subtracao com a ordem os numeros invertida tambem
         
-        if((num1-num2) > intervalo){
-                
-                intervalo = num1-num2;
-                num_maior_intervalo1 = num1;
-                num_maior_intervalo2 = num2;
-                
-        } else if((num2-num1) > intervalo){  //testa a subtração com a ordem os números invertida tbm
-                
-                intervalo = num2-num1;
-                num_maior_intervalo1 = num2;
-                num_maior_intervalo2 = num1;
-                
+            intervalo = num2-num1;
+            num_maior_intervalo1 = num2;
+            num_maior_intervalo2 = num1;
+            
         } else if(num2 == num1){  //sao iguais
-                
-                num_maior_intervalo1 = num2;
-                num_maior_intervalo2 = num1;
+        
+            num_maior_intervalo1 = num2;
+            num_maior_intervalo2 = num1;
+            
         }
-
+        //faz a substituicao dos valores para que num1 passe a valer num2
+        num1 = num2;
     } 
-    
     if (intervalo == 0){
         printf("Todos os numeros sao iguais!");
     } else {
-        printf("%d e %d, pois o intervalo entre eles é %d", num_maior_intervalo1, num_maior_intervalo2, num_maior_intervalo1 - num_maior_intervalo2);
+        printf("Os valores sao %d e %d, pois o intervalo entre eles e %d", num_maior_intervalo1, num_maior_intervalo2, num_maior_intervalo1 - num_maior_intervalo2);
     }
-    
-    return 0; //se colocar a função como void não precisa do return 0
-    
+    return 0;
 }
